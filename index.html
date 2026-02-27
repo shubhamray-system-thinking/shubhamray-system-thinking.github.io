@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic Systems Architect | Shubham Kumar Ray</title>
+    <style>
+        /* Retro Terminal & Pixel Grid Styles */
+        body {
+            margin: 0;
+            background-color: #0a0a0a;
+            color: #00ffcc;
+            font-family: 'Courier New', Courier, monospace;
+            background-image: 
+                linear-gradient(#1a1a1a 1px, transparent 1px),
+                linear-gradient(90deg, #1a1a1a 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        header {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            overflow: hidden;
+            border-bottom: 2px solid #333;
+            background: radial-gradient(circle at center, #111 0%, #0a0a0a 100%);
+        }
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+        h1 {
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+        }
+        h2 {
+            color: #fff;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            margin-top: 50px;
+        }
+        .bio {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: #ccc;
+        }
+        .bio strong {
+            color: #00ffcc;
+        }
+        .case-studies {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+        .card {
+            background: rgba(15, 15, 15, 0.95);
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+        }
+        .card:hover {
+            border-color: #00ffcc;
+            transform: translateY(-2px);
+        }
+        .card h3 {
+            color: #fff;
+            margin-top: 0;
+        }
+        .tag {
+            display: inline-block;
+            background: #1a1a1a;
+            color: #ff00ff;
+            padding: 5px 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border-radius: 2px;
+            margin-bottom: 15px;
+            border: 1px solid #ff00ff;
+            letter-spacing: 1px;
+        }
+        pre {
+            background: #050505;
+            padding: 15px;
+            border-left: 3px solid #00ffcc;
+            overflow-x: auto;
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <canvas id="agentCanvas"></canvas>
+</header>
+
+<div class="container">
+    <section class="bio">
+        <h1>Shubham Kumar Ray</h1>
+        <p><strong>Experimenting & Building the future AI systems for our digital twins.</strong></p>
+        <p>I am an Agentic Systems Architect and Product Strategist. I specialize in translating complex business bottlenecks into "Zero UI" product requirements, shifting traditional screen-based interactions into invisible, intent-driven workflows executed by digital labor.</p>
+    </section>
+
+    <h2>Systems Thinking Case Studies</h2>
+    <div class="case-studies">
+        
+        <div class="card">
+            <div class="tag">SUPPLY CHAIN</div>
+            <h3>Autonomous Procurement Swarm</h3>
+            <p><strong>The Legacy Bottleneck:</strong> Managing vendors across fragmented, screen-heavy ERP dashboards requires constant human monitoring and manual data entry.</p>
+            <p><strong>The Agentic Solution:</strong> A Zero UI architecture that monitors inventory APIs and autonomously negotiates shipping rates in real-time, executing the business intent instantly.</p>
+            <pre>
+{
+  "agent_id": "procurement_agent_1",
+  "task": "negotiate_shipping_rate",
+  "context": {
+    "target_vendor": "API_LOGISTICS_VNDR",
+    "required_delivery_date": "2026-03-15",
+    "target_price_per_unit": "$1.40"
+  },
+  "status": "Executing..."
+}
+            </pre>
+        </div>
+
+        <div class="card">
+            <div class="tag">LEGAL TECH</div>
+            <h3>Audit-as-a-Service API</h3>
+            <p><strong>The Legacy Bottleneck:</strong> Junior lawyers spend thousands of billable hours manually reading contracts to ensure regulatory compliance.</p>
+            <p><strong>The Agentic Solution:</strong> An API swarm that ingests every new vendor contract, cross-references it against changing corporate policies, and flags exact liability clauses without human intervention.</p>
+        </div>
+
+        <div class="card">
+            <div class="tag">HEALTHCARE</div>
+            <h3>Predictive Health Digital Twin</h3>
+            <p><strong>The Legacy Bottleneck:</strong> Patients use disparate portals for scheduling, lab results, and prescriptions, relying on staff to connect the dots.</p>
+            <p><strong>The Agentic Solution:</strong> A Health Digital Twin with secure access to wearables and lab APIs. It detects anomalies and books doctor appointments before the patient even knows they are sick.</p>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById('agentCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Define your API Endpoints (The tetris blocks)
+    const nodes = [
+        { name: '[USER INTENT]', color: '#00ffcc', x: 0.15, y: 0.5 },
+        { name: '[KNOWLEDGE_BASE]', color: '#ff00ff', x: 0.5, y: 0.2 },
+        { name: '[ACTION_API_1]', color: '#ffff00', x: 0.85, y: 0.5 },
+        { name: '[ACTION_API_2]', color: '#00ff00', x: 0.5, y: 0.8 }
+    ];
+
+    let progress = 0;
+    const speed = 0.004;
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw the background connection paths
+        ctx.beginPath();
+        ctx.strokeStyle = '#222';
+        ctx.lineWidth = 2;
+        for(let i=0; i<nodes.length; i++) {
+            let next = (i + 1) % nodes.length;
+            ctx.moveTo(nodes[i].x * canvas.width, nodes[i].y * canvas.height);
+            ctx.lineTo(nodes[next].x * canvas.width, nodes[next].y * canvas.height);
+        }
+        ctx.stroke();
+
+        // Draw the API Nodes
+        ctx.font = 'bold 14px Courier New';
+        ctx.textAlign = 'center';
+        nodes.forEach(node => {
+            const px = node.x * canvas.width;
+            const py = node.y * canvas.height;
+            
+            ctx.fillStyle = '#111';
+            ctx.strokeStyle = node.color;
+            ctx.lineWidth = 2;
+            ctx.fillRect(px - 15, py - 15, 30, 30);
+            ctx.strokeRect(px - 15, py - 15, 30, 30);
+            
+            ctx.fillStyle = '#fff';
+            ctx.fillText(node.name, px, py - 25);
+        });
+
+        // Calculate the moving "Agent" (The Snake)
+        const targetIndex = Math.floor(progress);
+        const nextIndex = (targetIndex + 1) % nodes.length;
+        const localProgress = progress - targetIndex;
+        
+        const startNode = nodes[targetIndex];
+        const endNode = nodes[nextIndex];
+        
+        const snakeX = startNode.x + (endNode.x - startNode.x) * localProgress;
+        const snakeY = startNode.y + (endNode.y - startNode.y) * localProgress;
+        
+        const px = snakeX * canvas.width;
+        const py = snakeY * canvas.height;
+
+        // Draw the glowing Agent pixel
+        ctx.fillStyle = startNode.color;
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = startNode.color;
+        ctx.fillRect(px - 10, py - 10, 20, 20);
+        ctx.shadowBlur = 0; 
+
+        progress += speed;
+        if (progress >= nodes.length) progress = 0;
+
+        requestAnimationFrame(draw);
+    }
+
+    draw();
+</script>
+</body>
+</html>
