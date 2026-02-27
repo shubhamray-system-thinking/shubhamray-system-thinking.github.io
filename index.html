@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agentic Systems Architect | Shubham Kumar Ray</title>
     <style>
-        /* 3D Synthwave / Cyberpunk Styles */
         body {
             margin: 0;
             background-color: #050505;
             color: #00ffcc;
             font-family: 'Courier New', Courier, monospace;
         }
+        /* The Video Header Wrapper */
         header {
             position: relative;
             width: 100%;
@@ -20,24 +20,35 @@
             border-bottom: 2px solid #222;
             background: #020202;
         }
-        canvas {
-            display: block;
-            width: 100%;
-            height: 100%;
+        /* This forces your video to cover the whole header cleanly */
+        #bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 0;
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover;
+            opacity: 0.8; /* Dims the video slightly so text is readable */
         }
-        /* Overlay text on top of the 3D canvas */
+        /* Floating Text over the video */
         .header-overlay {
             position: absolute;
             top: 20px;
             left: 20px;
+            z-index: 1;
             pointer-events: none;
         }
         .header-overlay h2 {
             margin: 0;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.9);
             font-size: 1rem;
             letter-spacing: 2px;
             border-bottom: none;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
         .container {
             max-width: 900px;
@@ -48,13 +59,6 @@
             color: #fff;
             font-size: 2.5rem;
             margin-bottom: 5px;
-            text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
-        }
-        h2 {
-            color: #fff;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-            margin-top: 50px;
         }
         .bio {
             font-size: 1.2rem;
@@ -75,10 +79,7 @@
             border: 1px solid #222;
             border-radius: 4px;
             padding: 30px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.8);
             position: relative;
-            overflow: hidden;
         }
         .card::before {
             content: '';
@@ -87,20 +88,9 @@
             background: #00ffcc;
             opacity: 0.5;
         }
-        .card:hover {
-            border-color: #00ffcc;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 255, 204, 0.1);
-        }
         .card:nth-child(2)::before { background: #ff00ff; }
-        .card:nth-child(2):hover { border-color: #ff00ff; box-shadow: 0 8px 25px rgba(255, 0, 255, 0.1); }
         .card:nth-child(3)::before { background: #ffff00; }
-        .card:nth-child(3):hover { border-color: #ffff00; box-shadow: 0 8px 25px rgba(255, 255, 0, 0.1); }
-        
-        .card h3 {
-            color: #fff;
-            margin-top: 0;
-        }
+        .card h3 { color: #fff; margin-top: 0; }
         .tag {
             display: inline-block;
             background: #111;
@@ -111,11 +101,9 @@
             border-radius: 2px;
             margin-bottom: 15px;
             border: 1px solid #00ffcc;
-            letter-spacing: 1px;
         }
         .card:nth-child(2) .tag { color: #ff00ff; border-color: #ff00ff; }
         .card:nth-child(3) .tag { color: #ffff00; border-color: #ffff00; }
-        
         pre {
             background: #000;
             padding: 15px;
@@ -130,10 +118,13 @@
 <body>
 
 <header>
+    <video id="bg-video" autoplay loop muted playsinline>
+        <source src="hero-loop.mp4" type="video/mp4">
+    </video>
+    
     <div class="header-overlay">
         <h2>SYSTEM_ORCHESTRATOR_ACTIVE</h2>
     </div>
-    <canvas id="agentCanvas"></canvas>
 </header>
 
 <div class="container">
@@ -143,7 +134,6 @@
         <p>I am an Agentic Systems Architect and Product Strategist. I specialize in translating complex business bottlenecks into "Zero UI" product requirements, shifting traditional screen-based interactions into invisible, intent-driven workflows executed by digital labor.</p>
     </section>
 
-    <h2>Systems Thinking Case Studies</h2>
     <div class="case-studies">
         <div class="card">
             <div class="tag">SUPPLY CHAIN</div>
@@ -170,7 +160,7 @@
             <p><strong>The Legacy Bottleneck:</strong> Junior lawyers spend thousands of billable hours manually reading contracts to ensure regulatory compliance.</p>
             <p><strong>The Agentic Solution:</strong> An API swarm that ingests every new vendor contract, cross-references it against changing corporate policies, and flags exact liability clauses without human intervention.</p>
         </div>
-
+        
         <div class="card">
             <div class="tag">HEALTHCARE</div>
             <h3>Predictive Health Digital Twin</h3>
@@ -180,159 +170,5 @@
     </div>
 </div>
 
-<script>
-    const canvas = document.getElementById('agentCanvas');
-    const ctx = canvas.getContext('2d');
-
-    let width, height, cx, cy;
-    function resize() {
-        width = canvas.width = canvas.clientWidth;
-        height = canvas.height = canvas.clientHeight;
-        cx = width / 2;
-        cy = height / 2;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    // 3D Projection Math
-    const fov = 400;
-    function project(x, y, z) {
-        const scale = fov / (fov + z);
-        return {
-            x: (x * scale) + cx,
-            y: (y * scale) + cy,
-            scale: scale
-        };
-    }
-
-    // 3D API Nodes (The Tetris Blocks)
-    const nodes = [
-        { id: '[USER_INTENT]', color: '#00ffcc', x: -300, y: 150, z: 100 },
-        { id: '[KNOWLEDGE_DB]', color: '#ff00ff', x: 300, y: -150, z: 400 },
-        { id: '[ACTION_API_1]', color: '#ffff00', x: -250, y: -200, z: 700 },
-        { id: '[ACTION_API_2]', color: '#00ff00', x: 250, y: 200, z: 250 }
-    ];
-
-    // The Neon Snake (Data Trail)
-    let progress = 0;
-    const speed = 0.005;
-    const trailLength = 25;
-    const trail = [];
-
-    function drawGrid() {
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        // Perspective lines
-        for(let i = -800; i <= 800; i += 100) {
-            let p1 = project(i, 400, 0);
-            let p2 = project(i, 400, 1000);
-            ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y);
-            
-            let p3 = project(i, -400, 0);
-            let p4 = project(i, -400, 1000);
-            ctx.moveTo(p3.x, p3.y); ctx.lineTo(p4.x, p4.y);
-            
-            let p5 = project(-800, i/2, 0);
-            let p6 = project(-800, i/2, 1000);
-            ctx.moveTo(p5.x, p5.y); ctx.lineTo(p6.x, p6.y);
-            
-            let p7 = project(800, i/2, 0);
-            let p8 = project(800, i/2, 1000);
-            ctx.moveTo(p7.x, p7.y); ctx.lineTo(p8.x, p8.y);
-        }
-        ctx.stroke();
-    }
-
-    function draw() {
-        // Dark fade for motion blur effect
-        ctx.fillStyle = 'rgba(2, 2, 2, 0.3)';
-        ctx.fillRect(0, 0, width, height);
-
-        drawGrid();
-
-        // Draw connecting background lines between nodes
-        ctx.beginPath();
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-        ctx.lineWidth = 2;
-        for(let i=0; i<nodes.length; i++) {
-            let next = (i + 1) % nodes.length;
-            let p1 = project(nodes[i].x, nodes[i].y, nodes[i].z);
-            let p2 = project(nodes[next].x, nodes[next].y, nodes[next].z);
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-        }
-        ctx.stroke();
-
-        // Calculate current snake position
-        const targetIndex = Math.floor(progress);
-        const nextIndex = (targetIndex + 1) % nodes.length;
-        const localProgress = progress - targetIndex;
-        
-        // Easing function for smooth 3D movement
-        const ease = 1 - Math.pow(1 - localProgress, 3); 
-        
-        const startNode = nodes[targetIndex];
-        const endNode = nodes[nextIndex];
-        
-        const currentX = startNode.x + (endNode.x - startNode.x) * ease;
-        const currentY = startNode.y + (endNode.y - startNode.y) * ease;
-        const currentZ = startNode.z + (endNode.z - startNode.z) * ease;
-        
-        // Store trail history
-        trail.push({x: currentX, y: currentY, z: currentZ, color: startNode.color});
-        if(trail.length > trailLength) trail.shift();
-
-        // Draw the neon snake trail
-        ctx.globalCompositeOperation = 'lighter';
-        for(let i = 0; i < trail.length; i++) {
-            const pt = project(trail[i].x, trail[i].y, trail[i].z);
-            const size = 15 * pt.scale * (i / trail.length); // Taper the tail
-            
-            ctx.fillStyle = trail[i].color;
-            ctx.shadowBlur = 15;
-            ctx.shadowColor = trail[i].color;
-            
-            ctx.beginPath();
-            ctx.arc(pt.x, pt.y, Math.max(0.5, size), 0, Math.PI * 2);
-            ctx.fill();
-        }
-        ctx.globalCompositeOperation = 'source-over';
-        ctx.shadowBlur = 0;
-
-        // Draw the 3D API Nodes (Tetris blocks)
-        nodes.forEach(node => {
-            const pt = project(node.x, node.y, node.z);
-            const size = 40 * pt.scale;
-            
-            ctx.fillStyle = 'rgba(10, 10, 10, 0.8)';
-            ctx.strokeStyle = node.color;
-            ctx.lineWidth = 2 * pt.scale;
-            
-            ctx.beginPath();
-            ctx.rect(pt.x - size/2, pt.y - size/2, size, size);
-            ctx.fill();
-            ctx.stroke();
-            
-            // Add a smaller inner block for that "hardware/API" look
-            ctx.fillStyle = node.color;
-            ctx.globalAlpha = 0.3;
-            ctx.fillRect(pt.x - size/4, pt.y - size/4, size/2, size/2);
-            ctx.globalAlpha = 1.0;
-            
-            ctx.fillStyle = '#fff';
-            ctx.font = `bold ${Math.max(10, 14 * pt.scale)}px Courier New`;
-            ctx.textAlign = 'center';
-            ctx.fillText(node.id, pt.x, pt.y - size/2 - 10);
-        });
-
-        progress += speed;
-        if (progress >= nodes.length) progress = 0;
-
-        requestAnimationFrame(draw);
-    }
-
-    draw();
-</script>
 </body>
 </html>
