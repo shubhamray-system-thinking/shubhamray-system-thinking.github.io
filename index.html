@@ -4,23 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agentic Systems Architect | Shubham Kumar Ray</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        /* 1. THE HERO SECTION (Dark Tech Theme) */
         body {
             margin: 0;
-            background-color: #050505;
-            color: #00ffcc;
-            font-family: 'Courier New', Courier, monospace;
+            background-color: #fcfbf9; /* Clean paper background for the rest of the site */
+            color: #111111;
+            font-family: 'Georgia', 'Times New Roman', serif;
         }
-        /* The Video Header Wrapper */
         header {
             position: relative;
             width: 100%;
             height: 450px;
             overflow: hidden;
-            border-bottom: 2px solid #222;
             background: #020202;
+            border-bottom: 4px solid #111;
         }
-        /* This forces your video to cover the whole header cleanly */
         #bg-video {
             position: absolute;
             top: 50%;
@@ -32,143 +32,266 @@
             z-index: 0;
             transform: translateX(-50%) translateY(-50%);
             object-fit: cover;
-            opacity: 0.8; /* Dims the video slightly so text is readable */
+            opacity: 0.8;
         }
-        /* Floating Text over the video */
         .header-overlay {
             position: absolute;
             top: 20px;
             left: 20px;
             z-index: 1;
-            pointer-events: none;
+            font-family: 'Courier New', Courier, monospace; /* Keeps the terminal look just for the header */
         }
         .header-overlay h2 {
             margin: 0;
-            color: rgba(255, 255, 255, 0.9);
+            color: #00ffcc; /* Neon cyan text over your GIF */
             font-size: 1rem;
             letter-spacing: 2px;
-            border-bottom: none;
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 50px 20px;
+
+        /* 2. THE RESEARCH PAPER LAYOUT (AI 2027 Theme) */
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+            padding: 20px 40px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 0.9rem;
         }
-        h1 {
-            color: #fff;
-            font-size: 2.5rem;
+        nav a { color: #111; text-decoration: none; padding: 5px 10px; }
+        nav a.active { border: 1px solid #111; border-radius: 4px; }
+
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+            gap: 80px;
+            align-items: flex-start;
+        }
+
+        /* Left Column */
+        .paper-content { flex: 1; max-width: 750px; line-height: 1.7; }
+        .paper-content h1 {
+            font-size: 3.5rem;
+            font-weight: normal;
+            margin: 0 0 10px 0;
+            letter-spacing: -1px;
+        }
+        .authors { font-size: 1.2rem; color: #555; margin-bottom: 40px; font-style: italic; }
+        .abstract { font-size: 1.25rem; margin-bottom: 30px; }
+        
+        .paper-section { margin-top: 60px; }
+        .paper-section h2 {
+            font-size: 2rem;
+            font-weight: normal;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .paper-section h3 {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #555;
+            margin-top: 40px;
             margin-bottom: 5px;
         }
-        .bio {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 40px;
-            color: #ccc;
+
+        /* Right Column (Data Dashboard) */
+        .dashboard {
+            flex: 0 0 450px;
+            position: sticky;
+            top: 40px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
-        .bio strong {
-            color: #00ffcc;
-        }
-        .case-studies {
+        .chart-container { margin-bottom: 30px; width: 100%; }
+        
+        .capabilities-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px;
-        }
-        .card {
-            background: rgba(10, 10, 10, 0.95);
-            border: 1px solid #222;
-            border-radius: 4px;
-            padding: 30px;
-            position: relative;
-        }
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 2px; height: 100%;
-            background: #00ffcc;
-            opacity: 0.5;
-        }
-        .card:nth-child(2)::before { background: #ff00ff; }
-        .card:nth-child(3)::before { background: #ffff00; }
-        .card h3 { color: #fff; margin-top: 0; }
-        .tag {
-            display: inline-block;
-            background: #111;
-            color: #00ffcc;
-            padding: 5px 12px;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
             font-size: 0.85rem;
-            font-weight: bold;
-            border-radius: 2px;
-            margin-bottom: 15px;
-            border: 1px solid #00ffcc;
+            font-weight: 500;
         }
-        .card:nth-child(2) .tag { color: #ff00ff; border-color: #ff00ff; }
-        .card:nth-child(3) .tag { color: #ffff00; border-color: #ffff00; }
-        pre {
-            background: #000;
-            padding: 15px;
-            border: 1px solid #333;
-            overflow-x: auto;
-            color: #aaa;
-            font-size: 0.9rem;
-            margin-top: 20px;
+        .capability-item { display: flex; align-items: center; gap: 10px; }
+        .icon-box {
+            width: 24px; height: 24px;
+            background: #111; color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 4px; font-size: 0.7rem;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            font-size: 0.75rem;
+            margin-top: 30px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+        .metric-title { color: #777; margin-bottom: 5px; }
+        .metric-value { font-weight: bold; font-size: 0.9rem; }
+
+        .progress-blocks { display: flex; gap: 2px; margin-top: 5px; }
+        .block { width: 8px; height: 8px; background: #ccc; border-radius: 1px; }
+        .block.filled { background: #111; }
+        .block.filled-accent { background: #2e593e; }
+
+        @media (max-width: 1000px) {
+            .container { flex-direction: column; }
+            .dashboard { position: static; width: 100%; margin-top: 50px; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <video id="bg-video" autoplay loop muted playsinline>
-        <source src="Hero_loop.mp4" type="video/mp4">
-    </video>
-    
+    <img id="bg-video" src="digital_twin.gif" alt="Digital Twin Animation">
     <div class="header-overlay">
         <h2>SYSTEM_ORCHESTRATOR_ACTIVE</h2>
     </div>
 </header>
 
+<nav>
+    <a href="#">Summary</a>
+    <a href="#" class="active">Research & Cases</a>
+    <a href="#">About the Architect</a>
+</nav>
+
 <div class="container">
-    <section class="bio">
-        <h1>Shubham Kumar Ray</h1>
-        <p><strong>Experimenting & Building the future AI systems for our digital twins.</strong></p>
-        <p>I am an Agentic Systems Architect and Product Strategist. I specialize in translating complex business bottlenecks into "Zero UI" product requirements, shifting traditional screen-based interactions into invisible, intent-driven workflows executed by digital labor.</p>
-    </section>
+    <article class="paper-content">
+        <h1>Agentic Systems Architecture</h1>
+        <div class="authors">By Shubham Kumar Ray, Product Strategist</div>
 
-    <div class="case-studies">
-        <div class="card">
-            <div class="tag">SUPPLY CHAIN</div>
-            <h3>Autonomous Procurement Swarm</h3>
-            <p><strong>The Legacy Bottleneck:</strong> Managing vendors across fragmented, screen-heavy ERP dashboards requires constant human monitoring and manual data entry.</p>
-            <p><strong>The Agentic Solution:</strong> A Zero UI architecture that monitors inventory APIs and autonomously negotiates shipping rates in real-time, executing the business intent instantly.</p>
-            <pre>
-{
-  "agent_id": "procurement_agent_1",
-  "task": "negotiate_shipping_rate",
-  "context": {
-    "target_vendor": "API_LOGISTICS_VNDR",
-    "required_delivery_date": "2026-03-15",
-    "target_price_per_unit": "$1.40"
-  },
-  "status": "Executing..."
-}
-            </pre>
-        </div>
-
-        <div class="card">
-            <div class="tag">LEGAL TECH</div>
-            <h3>Audit-as-a-Service API</h3>
-            <p><strong>The Legacy Bottleneck:</strong> Junior lawyers spend thousands of billable hours manually reading contracts to ensure regulatory compliance.</p>
-            <p><strong>The Agentic Solution:</strong> An API swarm that ingests every new vendor contract, cross-references it against changing corporate policies, and flags exact liability clauses without human intervention.</p>
-        </div>
+        <p class="abstract"><strong>Executive Summary:</strong> I specialize in translating complex business bottlenecks into "Zero UI" product requirements, shifting traditional screen-based interactions into invisible, intent-driven workflows executed by digital labor.</p>
         
-        <div class="card">
-            <div class="tag">HEALTHCARE</div>
-            <h3>Predictive Health Digital Twin</h3>
-            <p><strong>The Legacy Bottleneck:</strong> Patients use disparate portals for scheduling, lab results, and prescriptions, relying on staff to connect the dots.</p>
-            <p><strong>The Agentic Solution:</strong> A Health Digital Twin with secure access to wearables and lab APIs. It detects anomalies and books doctor appointments before the patient even knows they are sick.</p>
+        <p class="abstract">Below is a strategic analysis of how Agentic AI orchestration will restructure core enterprise operations over the next decade, moving from human-operated SaaS to autonomous API swarms.</p>
+
+        <div class="paper-section">
+            <h2>System Thinking Case Studies</h2>
+            
+            <h3>Supply Chain Operations</h3>
+            <p><strong>The Legacy Bottleneck:</strong> Managing vendors across fragmented, screen-heavy ERP dashboards requires constant human monitoring and manual data entry.</p>
+            <p><strong>The Agentic Solution:</strong> A Zero UI architecture (Autonomous Procurement Swarm) that monitors inventory APIs and autonomously negotiates shipping rates in real-time, executing the business intent instantly without human intervention.</p>
+
+            <h3>Legal Tech & Compliance</h3>
+            <p><strong>The Legacy Bottleneck:</strong> Junior lawyers and paralegals spend thousands of billable hours manually reading contracts to ensure regulatory compliance across shifting global policies.</p>
+            <p><strong>The Agentic Solution:</strong> An Audit-as-a-Service API swarm that ingests every new vendor contract, cross-references it against real-time corporate policies, and red-flags exact liability clauses autonomously.</p>
+
+            <h3>Predictive Healthcare</h3>
+            <p><strong>The Legacy Bottleneck:</strong> Patients use disparate portals for scheduling, lab results, and prescriptions, relying on administrative staff to connect the dots across different medical networks.</p>
+            <p><strong>The Agentic Solution:</strong> A Health Digital Twin with secure, federated access to wearables and lab APIs. It detects physiological anomalies and books doctor appointments before the patient consciously recognizes symptoms.</p>
         </div>
-    </div>
+    </article>
+
+    <aside class="dashboard">
+        <div class="chart-container" style="height: 200px;">
+            <canvas id="trajectoryChart"></canvas>
+        </div>
+
+        <div class="capabilities-grid">
+            <div class="capability-item"><div class="icon-box">⚙️</div> API Routing</div>
+            <div class="capability-item"><div class="icon-box">🧠</div> RAG Memory</div>
+            <div class="capability-item"><div class="icon-box">🔗</div> Orchestration</div>
+            <div class="capability-item"><div class="icon-box">🛡️</div> Compliance</div>
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <div style="font-size: 0.85rem;">
+                <strong>1,500 API Agents</strong> running concurrent<br>workflows at 8x human speed.
+                <div class="progress-blocks" style="margin-top: 10px;">
+                    <div class="block filled-accent"></div><div class="block filled-accent"></div><div class="block filled-accent"></div>
+                </div>
+            </div>
+            <div style="width: 100px; height: 100px;">
+                <canvas id="computeChart"></canvas>
+            </div>
+        </div>
+
+        <div class="metrics-grid">
+            <div><div class="metric-title">Efficiency</div><div class="metric-value">+340%</div></div>
+            <div><div class="metric-title">OpEx Saved</div><div class="metric-value">$1.2M/yr</div></div>
+            <div><div class="metric-title">Latency</div><div class="metric-value">< 200ms</div></div>
+            <div><div class="metric-title">Error Rate</div><div class="metric-value">0.01%</div></div>
+        </div>
+
+        <div style="margin-top: 30px; display: flex; justify-content: space-between; font-size: 0.75rem; color: #777;">
+            <div>Legacy SaaS
+                <div class="progress-blocks"><div class="block filled"></div><div class="block filled"></div><div class="block filled"></div></div>
+            </div>
+            <div>Current Agents
+                <div class="progress-blocks"><div class="block filled-accent"></div><div class="block filled-accent"></div><div class="block"></div></div>
+            </div>
+            <div>Zero UI
+                <div class="progress-blocks"><div class="block"></div><div class="block"></div><div class="block"></div></div>
+            </div>
+        </div>
+    </aside>
 </div>
 
+<script>
+    const ctxLine = document.getElementById('trajectoryChart').getContext('2d');
+    new Chart(ctxLine, {
+        type: 'line',
+        data: {
+            labels: ['2024', '2025', '2026', '2027'],
+            datasets: [
+                {
+                    label: 'Agentic Automation',
+                    data: [10, 25, 60, 95],
+                    borderColor: '#2e593e',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    pointRadius: 0
+                },
+                {
+                    label: 'Manual Execution',
+                    data: [90, 85, 60, 30],
+                    borderColor: '#aaa',
+                    borderWidth: 2,
+                    borderDash: [5, 5],
+                    tension: 0.4,
+                    pointRadius: 0
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { x: { grid: { display: false } }, y: { display: false } }
+        }
+    });
+
+    const ctxDoughnut = document.getElementById('computeChart').getContext('2d');
+    new Chart(ctxDoughnut, {
+        type: 'doughnut',
+        data: {
+            labels: ['Compute', 'Idle'],
+            datasets: [{ data: [80, 20], backgroundColor: ['#111111', '#dddddd'], borderWidth: 0 }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false, cutout: '75%',
+            plugins: { legend: { display: false }, tooltip: { enabled: false } }
+        },
+        plugins: [{
+            id: 'textCenter',
+            beforeDraw: function(chart) {
+                var width = chart.width, height = chart.height, ctx = chart.ctx;
+                ctx.restore();
+                var fontSize = (height / 80).toFixed(2);
+                ctx.font = "bold " + fontSize + "em sans-serif";
+                ctx.textBaseline = "middle";
+                var text = "Zero UI", textX = Math.round((width - ctx.measureText(text).width) / 2), textY = height / 2;
+                ctx.fillText(text, textX, textY);
+                ctx.save();
+            }
+        }]
+    });
+</script>
 </body>
 </html>
