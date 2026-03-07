@@ -1,297 +1,234 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agentic Systems Architect | Shubham Kumar Ray</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        /* 1. THE HERO SECTION (Dark Tech Theme) */
-        body {
-            margin: 0;
-            background-color: #fcfbf9; /* Clean paper background for the rest of the site */
-            color: #111111;
-            font-family: 'Georgia', 'Times New Roman', serif;
+    <title>Global Legal & Compliance Recruitment | Boutique Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        playfair:,
+                        dmsans:,
+                    },
+                    colors: {
+                        brand: {
+                            50: '#FAFAFA',
+                            900: '#111827',
+                            slate: '#0F172A',
+                            gold: '#B45309'
+                        }
+                    }
+                }
+            }
         }
-        header {
-            position: relative;
-            width: 100%;
-            height: 450px;
-            overflow: hidden;
-            background: #020202;
-            border-bottom: 4px solid #111;
-        }
-        #bg-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: 0;
-            transform: translateX(-50%) translateY(-50%);
-            object-fit: cover;
-            opacity: 0.8;
-        }
-        .header-overlay {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            z-index: 1;
-            font-family: 'Courier New', Courier, monospace; /* Keeps the terminal look just for the header */
-        }
-        .header-overlay h2 {
-            margin: 0;
-            color: #00ffcc; /* Neon cyan text over your GIF */
-            font-size: 1rem;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-        }
-
-        /* 2. THE RESEARCH PAPER LAYOUT (AI 2027 Theme) */
-        nav {
-            display: flex;
-            justify-content: flex-end;
-            gap: 20px;
-            padding: 20px 40px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 0.9rem;
-        }
-        nav a { color: #111; text-decoration: none; padding: 5px 10px; }
-        nav a.active { border: 1px solid #111; border-radius: 4px; }
-
-        .container {
-            display: flex;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px;
-            gap: 80px;
-            align-items: flex-start;
-        }
-
-        /* Left Column */
-        .paper-content { flex: 1; max-width: 750px; line-height: 1.7; }
-        .paper-content h1 {
-            font-size: 3.5rem;
-            font-weight: normal;
-            margin: 0 0 10px 0;
-            letter-spacing: -1px;
-        }
-        .authors { font-size: 1.2rem; color: #555; margin-bottom: 40px; font-style: italic; }
-        .abstract { font-size: 1.25rem; margin-bottom: 30px; }
-        
-        .paper-section { margin-top: 60px; }
-        .paper-section h2 {
-            font-size: 2rem;
-            font-weight: normal;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
-        }
-        .paper-section h3 {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #555;
-            margin-top: 40px;
-            margin-bottom: 5px;
-        }
-
-        /* Right Column (Data Dashboard) */
-        .dashboard {
-            flex: 0 0 450px;
-            position: sticky;
-            top: 40px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-        .chart-container { margin-bottom: 30px; width: 100%; }
-        
-        .capabilities-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-        .capability-item { display: flex; align-items: center; gap: 10px; }
-        .icon-box {
-            width: 24px; height: 24px;
-            background: #111; color: #fff;
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 4px; font-size: 0.7rem;
-        }
-
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            font-size: 0.75rem;
-            margin-top: 30px;
-            border-top: 1px solid #ddd;
-            padding-top: 20px;
-        }
-        .metric-title { color: #777; margin-bottom: 5px; }
-        .metric-value { font-weight: bold; font-size: 0.9rem; }
-
-        .progress-blocks { display: flex; gap: 2px; margin-top: 5px; }
-        .block { width: 8px; height: 8px; background: #ccc; border-radius: 1px; }
-        .block.filled { background: #111; }
-        .block.filled-accent { background: #2e593e; }
-
-        @media (max-width: 1000px) {
-            .container { flex-direction: column; }
-            .dashboard { position: static; width: 100%; margin-top: 50px; }
-        }
-    </style>
+    </script>
 </head>
-<body>
+<body class="bg-brand-50 text-brand-900 font-dmsans antialiased selection:bg-brand-gold selection:text-white">
 
-<header>
-    <img id="bg-video" src="digital_twin.gif" alt="Digital Twin Animation">
-    <div class="header-overlay">
-        <h2>SYSTEM_ORCHESTRATOR_ACTIVE</h2>
-    </div>
-</header>
-
-<nav>
-    <a href="#">Summary</a>
-    <a href="#" class="active">Research & Cases</a>
-    <a href="#">About the Architect</a>
-</nav>
-
-<div class="container">
-    <article class="paper-content">
-        <h1>Agentic Systems Architecture</h1>
-        <div class="authors">By Shubham Kumar Ray, Product Strategist</div>
-
-        <p class="abstract"><strong>Executive Summary:</strong> I specialize in translating complex business bottlenecks into "Zero UI" product requirements, shifting traditional screen-based interactions into invisible, intent-driven workflows executed by digital labor.</p>
-        
-        <p class="abstract">Below is a strategic analysis of how Agentic AI orchestration will restructure core enterprise operations over the next decade, moving from human-operated SaaS to autonomous API swarms.</p>
-
-        <div class="paper-section">
-            <h2>System Thinking Case Studies</h2>
-            
-            <h3>Supply Chain Operations</h3>
-            <p><strong>The Legacy Bottleneck:</strong> Managing vendors across fragmented, screen-heavy ERP dashboards requires constant human monitoring and manual data entry.</p>
-            <p><strong>The Agentic Solution:</strong> A Zero UI architecture (Autonomous Procurement Swarm) that monitors inventory APIs and autonomously negotiates shipping rates in real-time, executing the business intent instantly without human intervention.</p>
-
-            <h3>Legal Tech & Compliance</h3>
-            <p><strong>The Legacy Bottleneck:</strong> Junior lawyers and paralegals spend thousands of billable hours manually reading contracts to ensure regulatory compliance across shifting global policies.</p>
-            <p><strong>The Agentic Solution:</strong> An Audit-as-a-Service API swarm that ingests every new vendor contract, cross-references it against real-time corporate policies, and red-flags exact liability clauses autonomously.</p>
-
-            <h3>Predictive Healthcare</h3>
-            <p><strong>The Legacy Bottleneck:</strong> Patients use disparate portals for scheduling, lab results, and prescriptions, relying on administrative staff to connect the dots across different medical networks.</p>
-            <p><strong>The Agentic Solution:</strong> A Health Digital Twin with secure, federated access to wearables and lab APIs. It detects physiological anomalies and books doctor appointments before the patient consciously recognizes symptoms.</p>
-        </div>
-    </article>
-
-    <aside class="dashboard">
-        <div class="chart-container" style="height: 200px;">
-            <canvas id="trajectoryChart"></canvas>
-        </div>
-
-        <div class="capabilities-grid">
-            <div class="capability-item"><div class="icon-box">⚙️</div> API Routing</div>
-            <div class="capability-item"><div class="icon-box">🧠</div> RAG Memory</div>
-            <div class="capability-item"><div class="icon-box">🔗</div> Orchestration</div>
-            <div class="capability-item"><div class="icon-box">🛡️</div> Compliance</div>
-        </div>
-
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-            <div style="font-size: 0.85rem;">
-                <strong>1,500 API Agents</strong> running concurrent<br>workflows at 8x human speed.
-                <div class="progress-blocks" style="margin-top: 10px;">
-                    <div class="block filled-accent"></div><div class="block filled-accent"></div><div class="block filled-accent"></div>
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="font-playfair font-bold text-2xl tracking-tight text-brand-slate">[Agency Name]</span>
+                </div>
+                <div class="hidden md:flex space-x-4">
+                    <a href="#ask" class="text-sm font-medium text-gray-700 hover:text-brand-gold transition-colors px-3 py-2">Hire Global Talent</a>
+                    <a href="#ask" class="text-sm font-medium text-white bg-brand-slate hover:bg-gray-800 px-5 py-2.5 rounded-sm transition-colors">Find International Roles</a>
                 </div>
             </div>
-            <div style="width: 100px; height: 100px;">
-                <canvas id="computeChart"></canvas>
+        </div>
+    </nav>
+
+    <section class="relative w-full pt-32 pb-24 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
+                <div class="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-7 lg:text-left">
+                    <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl lg:text-7xl font-playfair leading-tight">
+                        <span class="block">We Don’t Just Fill Seats.</span>
+                        <span class="block text-brand-slate mt-2">We Secure Your Global Regulatory Future.</span>
+                    </h1>
+                    <p class="mt-6 text-base text-gray-600 sm:text-lg md:text-xl font-dmsans leading-relaxed">
+                        The international boutique search firm exclusively for Legal, Governance, and Compliance leadership. We replace the automated resume blasts of generalist agencies with extreme technical vetting to secure top-tier cross-border legal talent in 14 days.
+                    </p>
+                    <div class="mt-10 flex flex-col sm:flex-row gap-4 sm:justify-center lg:justify-start">
+                        <a href="#ask" class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-base font-medium rounded-sm text-white bg-brand-slate hover:bg-gray-800 focus:ring-2 focus:ring-offset-2 focus:ring-brand-gold transition-all shadow-sm">
+                            Secure Global Legal Talent
+                        </a>
+                        <a href="#ask" class="inline-flex items-center justify-center px-8 py-4 border border-gray-300 text-base font-medium rounded-sm text-gray-700 bg-white hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:ring-brand-gold transition-all shadow-sm">
+                            Advance Your International Practice
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden lg:block lg:col-span-5 relative mt-12 lg:mt-0">
+                    <div class="relative mx-auto w-full rounded-sm shadow-xl lg:max-w-md overflow-hidden bg-white border border-gray-200">
+                        <div class="w-full h-96 bg-gradient-to-br from-slate-100 to-slate-300 flex items-center justify-center p-8">
+                           <div class="grid grid-cols-2 gap-4 w-full h-full opacity-70">
+                              <div class="bg-slate-800 rounded-sm w-full h-full transform transition hover:scale-105 duration-500"></div>
+                              <div class="bg-brand-gold rounded-sm w-full h-1/2 self-end transform transition hover:scale-105 duration-500 delay-75"></div>
+                              <div class="bg-gray-400 rounded-sm w-full h-3/4 self-end transform transition hover:scale-105 duration-500 delay-150"></div>
+                              <div class="bg-slate-900 rounded-sm w-full h-full transform transition hover:scale-105 duration-500 delay-200"></div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="metrics-grid">
-            <div><div class="metric-title">Efficiency</div><div class="metric-value">+340%</div></div>
-            <div><div class="metric-title">OpEx Saved</div><div class="metric-value">$1.2M/yr</div></div>
-            <div><div class="metric-title">Latency</div><div class="metric-value">< 200ms</div></div>
-            <div><div class="metric-title">Error Rate</div><div class="metric-value">0.01%</div></div>
+    <section class="bg-white py-24 lg:py-32 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl font-playfair font-bold text-brand-slate sm:text-4xl">The Severe Cost of the "Generalist" Model Across Borders</h2>
+                <p class="mt-4 text-lg text-gray-600">The era of the domestic legal generalist is over. Massive agencies operate on volume, relying on algorithmic keyword matching that completely misses the nuances of cross-border regulatory frameworks.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-brand-50 p-8 rounded-sm border border-gray-100 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                    <div class="w-12 h-12 bg-slate-200 rounded-sm flex items-center justify-center mb-6 text-brand-slate font-bold text-xl">01</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 font-playfair">The Cross-Border Technical Void</h3>
+                    <p class="text-gray-600">52% of multinational businesses struggle to find specialized regulatory talent capable of managing multi-jurisdictional compliance using traditional recruiters.</p>
+                </div>
+                <div class="bg-brand-50 p-8 rounded-sm border border-gray-100 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                    <div class="w-12 h-12 bg-brand-gold/20 rounded-sm flex items-center justify-center mb-6 text-brand-gold font-bold text-xl">02</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 font-playfair">Compromised Confidentiality</h3>
+                    <p class="text-gray-600">Algorithmic matching and junior researchers often lack the absolute discretion required when replacing critical international compliance leadership.</p>
+                </div>
+                <div class="bg-brand-50 p-8 rounded-sm border border-gray-100 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                    <div class="w-12 h-12 bg-slate-200 rounded-sm flex items-center justify-center mb-6 text-brand-slate font-bold text-xl">03</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 font-playfair">Sluggish Global Timelines</h3>
+                    <p class="text-gray-600">Bureaucratic screening processes leave vital governance roles vacant for months, exposing you to immediate international regulatory risk and penalties.</p>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div style="margin-top: 30px; display: flex; justify-content: space-between; font-size: 0.75rem; color: #777;">
-            <div>Legacy SaaS
-                <div class="progress-blocks"><div class="block filled"></div><div class="block filled"></div><div class="block filled"></div></div>
-            </div>
-            <div>Current Agents
-                <div class="progress-blocks"><div class="block filled-accent"></div><div class="block filled-accent"></div><div class="block"></div></div>
-            </div>
-            <div>Zero UI
-                <div class="progress-blocks"><div class="block"></div><div class="block"></div><div class="block"></div></div>
+    <section class="py-24 lg:py-32 bg-brand-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+                <div class="mb-12 lg:mb-0 order-2 lg:order-1">
+                    <h2 class="text-3xl font-playfair font-bold text-brand-slate sm:text-4xl mb-6">Extreme Global Specialization. Absolute Discretion.</h2>
+                    <p class="text-lg text-gray-600 mb-8">We operate differently. As a specialized international boutique firm, we maintain deep roots within the global legal ecosystem. We execute targeted, discreet borderless headhunting to connect you with the top 5% of passive market performers.</p>
+                    
+                    <ul class="space-y-6">
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 h-6 w-6 rounded-full bg-brand-gold flex items-center justify-center text-white mt-1 text-sm">✓</span>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold text-gray-900">Multi-Jurisdictional Blueprinting</h4>
+                                <p class="mt-1 text-gray-600">We assess candidates on their precise technical mastery of emerging international laws, data protection regulations, and global AI frameworks.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 h-6 w-6 rounded-full bg-brand-gold flex items-center justify-center text-white mt-1 text-sm">✓</span>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold text-gray-900">Zero-Friction Timelines</h4>
+                                <p class="mt-1 text-gray-600">Our exclusive focus allows us to present a curated shortlist of 3-5 perfectly aligned international candidates within 14 days.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 h-6 w-6 rounded-full bg-brand-gold flex items-center justify-center text-white mt-1 text-sm">✓</span>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold text-gray-900">Clarity as Strategy</h4>
+                                <p class="mt-1 text-gray-600">We align expectations regarding international compensation structures, global mobility, and partnership tracks to ensure a 95% offer acceptance rate.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="order-1 lg:order-2 bg-slate-200 h-96 rounded-sm shadow-inner flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-brand-slate opacity-10"></div>
+                    <div class="grid grid-cols-3 gap-2 w-3/4 h-3/4">
+                        <div class="bg-white/50 rounded-sm"></div>
+                        <div class="bg-brand-gold/40 rounded-sm col-span-2"></div>
+                        <div class="bg-slate-800/40 rounded-sm col-span-2 row-span-2"></div>
+                        <div class="bg-white/60 rounded-sm"></div>
+                        <div class="bg-brand-gold/60 rounded-sm"></div>
+                    </div>
+                </div>
             </div>
         </div>
-    </aside>
-</div>
+    </section>
 
-<script>
-    const ctxLine = document.getElementById('trajectoryChart').getContext('2d');
-    new Chart(ctxLine, {
-        type: 'line',
-        data: {
-            labels: ['2024', '2025', '2026', '2027'],
-            datasets: [
-                {
-                    label: 'Agentic Automation',
-                    data: [10, 25, 60, 95],
-                    borderColor: '#2e593e',
-                    borderWidth: 2,
-                    tension: 0.4,
-                    pointRadius: 0
-                },
-                {
-                    label: 'Manual Execution',
-                    data: [90, 85, 60, 30],
-                    borderColor: '#aaa',
-                    borderWidth: 2,
-                    borderDash: [5, 5],
-                    tension: 0.4,
-                    pointRadius: 0
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: { x: { grid: { display: false } }, y: { display: false } }
-        }
-    });
+    <section class="bg-brand-slate py-24 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-playfair font-bold sm:text-4xl mb-6">Engineered for the 2026 Global Legal Landscape</h2>
+            <p class="text-lg text-gray-300 max-w-3xl mx-auto mb-16">We leverage proprietary global market intelligence to advise our partners on rising cross-border legal salary benchmarks, EU pay transparency directives, and international compliance operating models.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 divide-y md:divide-y-0 md:divide-x divide-gray-700">
+                <div class="pt-8 md:pt-0">
+                    <div class="text-5xl font-playfair font-bold text-brand-gold mb-2">100%</div>
+                    <div class="text-lg font-medium text-gray-300">Focus on Global Legal & Compliance</div>
+                </div>
+                <div class="pt-8 md:pt-0">
+                    <div class="text-5xl font-playfair font-bold text-brand-gold mb-2">14-Day</div>
+                    <div class="text-lg font-medium text-gray-300">Average Shortlist Velocity</div>
+                </div>
+                <div class="pt-8 md:pt-0">
+                    <div class="text-5xl font-playfair font-bold text-brand-gold mb-2">96%</div>
+                    <div class="text-lg font-medium text-gray-300">18-Month Retention Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    const ctxDoughnut = document.getElementById('computeChart').getContext('2d');
-    new Chart(ctxDoughnut, {
-        type: 'doughnut',
-        data: {
-            labels: ['Compute', 'Idle'],
-            datasets: [{ data: [80, 20], backgroundColor: ['#111111', '#dddddd'], borderWidth: 0 }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false, cutout: '75%',
-            plugins: { legend: { display: false }, tooltip: { enabled: false } }
-        },
-        plugins: [{
-            id: 'textCenter',
-            beforeDraw: function(chart) {
-                var width = chart.width, height = chart.height, ctx = chart.ctx;
-                ctx.restore();
-                var fontSize = (height / 80).toFixed(2);
-                ctx.font = "bold " + fontSize + "em sans-serif";
-                ctx.textBaseline = "middle";
-                var text = "Zero UI", textX = Math.round((width - ctx.measureText(text).width) / 2), textY = height / 2;
-                ctx.fillText(text, textX, textY);
-                ctx.save();
-            }
-        }]
-    });
-</script>
+    <section id="ask" class="py-24 lg:py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-playfair font-bold text-brand-slate sm:text-4xl">Initiate Your Global Search</h2>
+                <p class="mt-4 text-lg text-gray-600">Stop trusting your international regulatory future to generalist staffing solutions.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
+                <div class="bg-brand-50 p-8 rounded-sm border border-gray-200 shadow-sm">
+                    <h3 class="text-2xl font-playfair font-bold text-gray-900 mb-6 border-b border-gray-200 pb-4">Request a Confidential Global Consultation</h3>
+                    <form class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-sm border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:border-brand-gold outline-none transition-shadow" placeholder="Jane Doe">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Corporate Email</label>
+                            <input type="email" class="w-full px-4 py-3 rounded-sm border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:border-brand-gold outline-none transition-shadow" placeholder="jane@enterprise.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Hiring Jurisdiction(s)</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-sm border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:border-brand-gold outline-none transition-shadow" placeholder="e.g., EU, India, APAC">
+                        </div>
+                        <button type="button" class="w-full bg-brand-slate text-white font-bold py-4 rounded-sm hover:bg-gray-800 transition-colors mt-4">Initiate Partnership</button>
+                    </form>
+                </div>
+
+                <div class="bg-brand-50 p-8 rounded-sm border border-gray-200 shadow-sm">
+                    <h3 class="text-2xl font-playfair font-bold text-gray-900 mb-6 border-b border-gray-200 pb-4">Submit Your Private International Profile</h3>
+                    <form class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-sm border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:border-brand-gold outline-none transition-shadow" placeholder="John Smith">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Private Email</label>
+                            <input type="email" class="w-full px-4 py-3 rounded-sm border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:border-brand-gold outline-none transition-shadow" placeholder="john@private.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">LinkedIn Profile URL</label>
+                            <input type="url" class="w-full px-4 py-3 rounded-sm border border-gray-300 focus:ring-2 focus:ring-brand-gold focus:border-brand-gold outline-none transition-shadow" placeholder="https://linkedin.com/in/...">
+                        </div>
+                        <button type="button" class="w-full bg-white border-2 border-brand-slate text-brand-slate font-bold py-4 rounded-sm hover:bg-gray-50 transition-colors mt-4">Submit Confidentially</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-gray-200 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <span class="font-playfair font-bold text-xl text-brand-slate mb-4 md:mb-0">[Agency Name]</span>
+            <p class="text-sm text-gray-500">© 2026 [Agency Name]. All rights reserved. Strict Confidentiality Maintained.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
